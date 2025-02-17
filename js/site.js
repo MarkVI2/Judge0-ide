@@ -16,6 +16,9 @@ document.body.addEventListener("click", function (event) {
         dropdown.querySelector(".judge0-dropdown-menu").classList.toggle("hidden");
     }
 
+    // For each dropdown menu check if it needs to be hidden.
+    // If the click is outside of the dropdown menu and if that dropdown menu is not
+    // the dropdown menu of the just clicked dropdown button, hide it.
     document.querySelectorAll(".judge0-dropdown-menu").forEach(function (dropdownMenu) {
         if (!dropdownMenu.contains(event.target) && dropdown !== dropdownMenu.closest(".judge0-dropdown")) {
             dropdownMenu.classList.add("hidden");
