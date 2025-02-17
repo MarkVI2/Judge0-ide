@@ -85,44 +85,40 @@ const DEFAULT_CONFIGURATIONS = {
     }
 };
 
-const PROXY_GET = function(obj, key) {
-    if (!key) {
-        return null;
-    }
-
-    for (const k of key.split(".")) {
-        obj = obj[k];
-        if (!obj) {
-            break;
-        }
-    }
-
-    return obj;
-};
-
-const PROXT_SET = function(obj, key, val) {
-    if (!key) {
-        return false;
-    }
-
-    const keys = key.split(".");
-    const lastKey = keys[keys.length - 1];
-
-    for (let i = 0; i < keys.length - 1; i++) {
-        if (!obj[keys[i]]) {
-            obj[keys[i]] = {};
-        }
-        obj = obj[keys[i]];
-    }
-
-    obj[lastKey] = val;
-
-    return true;
-};
-
 const PROXY_HANDLER = {
-    get: PROXY_GET,
-    set: PROXT_SET
+    get: function(obj, key) {
+        if (!key) {
+            return null;
+        }
+
+        for (const k of key.split(".")) {
+            obj = obj[k];
+            if (!obj) {
+                break;
+            }
+        }
+
+        return obj;
+    },
+    set: function(obj, key, val) {
+        if (!key) {
+            return false;
+        }
+
+        const keys = key.split(".");
+        const lastKey = keys[keys.length - 1];
+
+        for (let i = 0; i < keys.length - 1; i++) {
+            if (!obj[keys[i]]) {
+                obj[keys[i]] = {};
+            }
+            obj = obj[keys[i]];
+        }
+
+        obj[lastKey] = val;
+
+        return true;
+    }
 };
 
 const LEGAL_VALUES = new Proxy({
@@ -134,26 +130,27 @@ const LEGAL_VALUES = new Proxy({
     }
 }, PROXY_HANDLER);
 
+var CONFIGURATION = null;
+var LOADED_CONFIGURATION = null;
+
 const configuration = {
-    CONFIGURATION: null,
-    LOADED_CONFIGURATION: null,
     load() {
         configuration.getConfig();
     },
     getConfig() {
-        if (!configuration.CONFIGURATION) {
-            configuration.CONFIGURATION = new Proxy(JSON.parse(JSON.stringify(DEFAULT_CONFIGURATIONS.default)), {
-                get: PROXY_GET,
+        if (!CONFIGURATION) {
+            CONFIGURATION = new Proxy(JSON.parse(JSON.stringify(DEFAULT_CONFIGURATION)), {
+                get: PROXY_HANDLER.get,
                 set: function(obj, key, val) {
                     if (LEGAL_VALUES[key] && !LEGAL_VALUES[key].includes(val)) {
                         return true;
                     }
 
-                    if (PROXY_GET(obj, key) === val) {
+                    if (PROXY_HANDLER.get(obj, key) === val) {
                         return true;
                     }
 
-                    PROXT_SET(obj, key, val);
+                    PROXY_HANDLER.set(obj, key, val);
 
                     if (key === "style") {
                         obj.styleOptions = DEFAULT_CONFIGURATIONS[val].styleOptions;
@@ -164,21 +161,21 @@ const configuration = {
                     return true;
                 }
             });
-            configuration.merge(configuration.CONFIGURATION, configuration.getLoadedConfig());
+            configuration.merge(CONFIGURATION, configuration.getLoadedConfig());
         }
-        return configuration.CONFIGURATION;
+        return CONFIGURATION;
     },
     getLoadedConfig() {
-        if (!configuration.LOADED_CONFIGURATION) {
-            configuration.LOADED_CONFIGURATION = new Proxy({}, PROXY_HANDLER);
-            for (const key of configuration.getKeys(DEFAULT_CONFIGURATIONS.default)) {
+        if (!LOADED_CONFIGURATION) {
+            LOADED_CONFIGURATION = new Proxy({}, PROXY_HANDLER);
+            for (const key of configuration.getKeys(DEFAULT_CONFIGURATION)) {
                 const val = query.get(`${ls.PREFIX}${key}`) || ls.get(key);
                 if (val) {
-                    configuration.LOADED_CONFIGURATION[key] = val;
+                    LOADED_CONFIGURATION[key] = val;
                 }
             }
         }
-        return configuration.LOADED_CONFIGURATION;
+        return LOADED_CONFIGURATION;
     },
     get(key) {
         const config = configuration.getConfig();
