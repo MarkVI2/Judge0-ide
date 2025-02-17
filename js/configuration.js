@@ -2,135 +2,85 @@
 import query from "./query.js";
 import ls from "./local_storage.js";
 
+const DEFAULT_STYLE_OPTIONS = {
+    showLogo: true,
+    showFileMenu: true,
+    showHelpMenu: true,
+    showSelectLanguage: true,
+    showCompilerOptions: true,
+    showCommandLineArguments: true,
+    showRunButton: true,
+    showThemeButton: true,
+    showPuterSignInOutButton: true,
+    showStatusLine: true,
+    showCopyright: true,
+    showNavigation: true
+};
+
+const DEFAULT_APP_OPTIONS = {
+    showAIAssistant: true,
+    ioLayout: "stack",
+    assistantLayout: "column",
+    mainLayout: "row",
+    showInput: true,
+    showOutput: true,
+    apiKey: ""
+};
+
+const DEFAULT_CONFIGURATION = {
+    theme: "system",
+    style: "default",
+    styleOptions: DEFAULT_STYLE_OPTIONS,
+    appOptions: DEFAULT_APP_OPTIONS
+};
+
 const DEFAULT_CONFIGURATIONS = {
-    default: {
-        theme: "system",
-        style: "default",
-        styleOptions: {
-            showLogo: true,
-            showFileMenu: true,
-            showHelpMenu: true,
-            showSelectLanguage: true,
-            showCompilerOptions: true,
-            showCommandLineArguments: true,
-            showRunButton: true,
-            showThemeButton: true,
-            showPuterSignInOutButton: true,
-            showStatusLine: true,
-            showCopyright: true,
-            showNavigation: true
-        },
-        appOptions: {
-            showAIAssistant: true,
-            ioLayout: "stack",
-            assistantLayout: "column",
-            mainLayout: "row",
-            showInput: true,
-            showOutput: true
-        }
-    },
+    default: DEFAULT_CONFIGURATION,
     minimal: {
-        theme: "system",
+        ...DEFAULT_CONFIGURATION,
         style: "minimal",
         styleOptions: {
+            ...DEFAULT_STYLE_OPTIONS,
             showLogo: false,
             showFileMenu: false,
             showHelpMenu: false,
-            showSelectLanguage: true,
             showCompilerOptions: false,
             showCommandLineArguments: false,
-            showRunButton: true,
             showThemeButton: false,
             showPuterSignInOutButton: false,
             showStatusLine: false,
-            showCopyright: false,
-            showNavigation: true
+            showCopyright: false
         },
         appOptions: {
+            ...DEFAULT_APP_OPTIONS,
             showAIAssistant: false,
             ioLayout: "column",
-            assistantLayout: "column",
-            mainLayout: "row",
-            showInput: true,
-            showOutput: true
         }
     },
     standalone: {
-        theme: "system",
+        ...DEFAULT_CONFIGURATION,
         style: "standalone",
         styleOptions: {
+            ...DEFAULT_STYLE_OPTIONS,
             showLogo: false,
-            showFileMenu: true,
-            showHelpMenu: true,
-            showSelectLanguage: true,
-            showCompilerOptions: true,
-            showCommandLineArguments: true,
-            showRunButton: true,
-            showThemeButton: true,
-            showPuterSignInOutButton: true,
-            showStatusLine: true,
-            showCopyright: false,
-            showNavigation: true
-        },
-        appOptions: {
-            showAIAssistant: true,
-            ioLayout: "stack",
-            assistantLayout: "column",
-            mainLayout: "row",
-            showInput: true,
-            showOutput: true
+            showCopyright: false
         }
     },
     electron: {
-        theme: "system",
+        ...DEFAULT_CONFIGURATION,
         style: "electron",
         styleOptions: {
+            ...DEFAULT_STYLE_OPTIONS,
             showLogo: false,
-            showFileMenu: true,
-            showHelpMenu: true,
-            showSelectLanguage: true,
-            showCompilerOptions: true,
-            showCommandLineArguments: true,
-            showRunButton: true,
-            showThemeButton: true,
-            showPuterSignInOutButton: true,
-            showStatusLine: true,
-            showCopyright: false,
-            showNavigation: true
-        },
-        appOptions: {
-            showAIAssistant: true,
-            ioLayout: "stack",
-            assistantLayout: "column",
-            mainLayout: "row",
-            showInput: true,
-            showOutput: true
+            showCopyright: false
         }
     },
     puter: {
-        theme: "system",
+        ...DEFAULT_CONFIGURATION,
         style: "puter",
         styleOptions: {
-            showLogo: false,
-            showFileMenu: true,
-            showHelpMenu: true,
-            showSelectLanguage: true,
-            showCompilerOptions: true,
-            showCommandLineArguments: true,
-            showRunButton: true,
-            showThemeButton: true,
-            showPuterSignInOutButton: false,
-            showStatusLine: true,
-            showCopyright: true,
-            showNavigation: true
-        },
-        appOptions: {
-            showAIAssistant: true,
-            ioLayout: "stack",
-            assistantLayout: "column",
-            mainLayout: "row",
-            showInput: true,
-            showOutput: true
+            ...DEFAULT_STYLE_OPTIONS,
+            showLogo: false
         }
     }
 };
