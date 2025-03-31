@@ -162,7 +162,7 @@ function handleResult(data) {
 
     $statusLine.html(`${status.description}, ${time}, ${memory} (TAT: ${tat}ms)`);
 
-    const output = [compileOutput, stdout].join("\n").trim();
+    const output = [compileOutput, stdout].join("\n").trimEnd();
 
     stdoutEditor.setValue(output);
 
@@ -569,7 +569,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 scrollBeyondLastLine: true,
                 readOnly: state.readOnly,
                 language: "cpp",
-                fontFamily: "JetBrains Mono",
                 minimap: {
                     enabled: true
                 }
@@ -654,7 +653,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 scrollBeyondLastLine: false,
                 readOnly: state.readOnly,
                 language: "plaintext",
-                fontFamily: "JetBrains Mono",
                 minimap: {
                     enabled: false
                 }
@@ -667,7 +665,6 @@ document.addEventListener("DOMContentLoaded", async function () {
                 scrollBeyondLastLine: false,
                 readOnly: state.readOnly,
                 language: "plaintext",
-                fontFamily: "JetBrains Mono",
                 minimap: {
                     enabled: false
                 }
