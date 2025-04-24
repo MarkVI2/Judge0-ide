@@ -1,283 +1,361 @@
 <!DOCTYPE html>
 <html lang="en-US" class="size-full">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=width=device-width, initial-scale=1.0"
+    />
 
     <script src="https://cdn.jsdelivr.net/npm/@unocss/runtime"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@unocss/reset/tailwind.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@unocss/reset/tailwind.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-    <script src="https://js.puter.com/v2/"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+      type="text/javascript"
+      src="https://golden-layout.com/files/latest/js/goldenlayout.min.js"
+    ></script>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://golden-layout.com/files/latest/css/goldenlayout-base.css"
+    />
+    <link
+      id="judge0-golden-layout-dark-theme-stylesheet"
+      type="text/css"
+      rel="stylesheet"
+      href="https://golden-layout.com/files/latest/css/goldenlayout-dark-theme.css"
+      disabled
+    />
+    <link
+      id="judge0-golden-layout-light-theme-stylesheet"
+      type="text/css"
+      rel="stylesheet"
+      href="https://golden-layout.com/files/latest/css/goldenlayout-light-theme.css"
+    />
 
-    <script type="text/javascript" src="https://golden-layout.com/files/latest/js/goldenlayout.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-base.css" />
-    <link id="judge0-golden-layout-dark-theme-stylesheet" type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-dark-theme.css" disabled />
-    <link id="judge0-golden-layout-light-theme-stylesheet" type="text/css" rel="stylesheet" href="https://golden-layout.com/files/latest/css/goldenlayout-light-theme.css" />
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js" integrity="sha512-ZG31AN9z/CQD1YDDAK4RUAvogwbJHv6bHrumrnMLzdCrVu4HeAqrUX7Jsal/cbUwXGfaMUNmQU04tQ8XXl5Znw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js"
+      integrity="sha512-ZG31AN9z/CQD1YDDAK4RUAvogwbJHv6bHrumrnMLzdCrVu4HeAqrUX7Jsal/cbUwXGfaMUNmQU04tQ8XXl5Znw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
     <script>
-        require.config({
-            paths: {
-                "vs": "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs"
-            }
-        });
+      require.config({
+        paths: {
+          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs",
+        },
+      });
     </script>
 
     <script type="module" src="/js/configuration.js"></script>
     <script type="module" src="/js/electron.js"></script>
-    <script type="module" src="/js/layout.js"></script>
     <script type="module" src="/js/local_storage.js"></script>
-    <script type="module" src="/js/puter.js"></script>
     <script type="module" src="/js/query.js"></script>
     <script type="module" src="/js/site.js"></script>
     <script type="module" src="/js/style.js"></script>
     <script type="module" src="/js/theme.js"></script>
+    <script defer type="module" src="/js/ide.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="/css/site.css">
+    <link type="text/css" rel="stylesheet" href="/css/site.css" />
 
-    <title>Judge0 IDE</title>
-    <meta name="title" content="Judge0 IDE">
-    <meta name="description" content="Free and open-source online code editor and compiler">
-    <meta name="author" content="Judge0 d.o.o.">
-    <meta name="keywords" content="online editor, online code editor, online ide, online compiler, online interpreter, run code online, learn programming online,
+    <title>muLab</title>
+    <meta name="title" content="muLab" />
+    <meta
+      name="description"
+      content="Mahindra University's online code editor and compiler"
+    />
+    <meta name="author" content="Atharv Garg" />
+    <meta
+      name="keywords"
+      content="online editor, online code editor, online ide, online compiler, online interpreter, run code online, learn programming online,
     online debugger, programming in browser, online code runner, online code execution, debug online, debug C code online, debug C++ code online,
     programming online, snippet, snippets, code snippet, code snippets, pastebin, execute code, programming in browser, run c online, run C++ online,
-    run java online, run python online, run ruby online, run c# online, run rust online, run pascal online, run basic online">
+    run java online, run python online, run ruby online, run c# online, run rust online, run pascal online, run basic online"
+    />
 
-    <meta property="og:url" content="https://ide.judge0.com">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Judge0 IDE">
-    <meta property="og:image" content="https://raw.githubusercontent.com/judge0/ide/refs/heads/master/.github/wallpaper.png">
-    <meta property="og:image:alt" content="Judge0 IDE">
-    <meta property="og:description" content="Free and open-source online code editor and compiler">
-    <meta property="og:site_name" content="Judge0 IDE">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://code.euclid-mu.in" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="muLab" />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/judge0/ide/refs/heads/master/.github/wallpaper.png"
+    />
+    <meta property="og:image:alt" content="muLab" />
+    <meta
+      property="og:description"
+      content="Mahindra University's online code editor and compiler"
+    />
+    <meta property="og:site_name" content="muLab" />
+    <meta property="og:locale" content="en_US" />
 
-    <meta property="twitter:url" content="https://ide.judge0.com">
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Judge0 IDE">
-    <meta property="twitter:image" content="https://raw.githubusercontent.com/judge0/ide/refs/heads/master/.github/wallpaper.png">
-    <meta property="twitter:description" content="Free and open-source online code editor and compiler">
+    <meta property="twitter:url" content="https://ide.judge0.com" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="muLab" />
+    <meta
+      property="twitter:image"
+      content="https://raw.githubusercontent.com/judge0/ide/refs/heads/master/.github/wallpaper.png"
+    />
+    <meta
+      property="twitter:description"
+      content="Mahindra University's online code editor and compiler"
+    />
 
-    <link rel="shortcut icon" href="/favicons/favicon.ico">
+    <link rel="shortcut icon" href="/favicons/favicon.ico" />
 
-    <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/favicons/favicon-96x96.png"
+    />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/favicon-180x180.png">
-    <meta name="apple-mobile-web-app-title" content="Judge0 IDE">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/favicons/favicon-180x180.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="muLab" />
 
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json" />
 
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-</head>
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
 
-<body class="flex flex-col text-black bg-white size-full dark:bg-black dark:text-white" style="opacity: 0 !important;">
+  <body
+    class="flex flex-col text-black bg-white size-full dark:bg-black dark:text-white"
+    style="opacity: 0 !important"
+  >
     <header class="flex items-center p-1 space-x-1 judge0-showNavigation">
-        <a href="https://judge0.com" target="_blank" rel="noopener" tabindex="-1" class="w-8 h-8 rounded-md judge0-showLogo">
-            <img src="./images/icon_var2_rounded_512.png">
-        </a>
-        <div class="max-md:hidden judge0-showFileMenu judge0-dropdown">
-            <button class="inline-flex items-center justify-center h-8 gap-2 px-4 text-sm transition rounded-md judge0-dropdown-btn dark:hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 hover:bg-zinc-100 whitespace-nowrap">
-                <span class="overflow-hidden text-nowrap">File</span>
-            </button>
-            <div class="absolute hidden mt-1 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-zinc-200 dark:[&::-webkit-scrollbar-track]:bg-transparent dark:[&::-webkit-scrollbar-thumb]:bg-zinc-700 text-sm bg-white border rounded-md shadow-md judge0-dropdown-menu max-h-1/2 dark:border-zinc-800 dark:bg-black z-50">
-                <ul class="py-2">
-                    <li class="mx-2"><a class="flex items-center gap-2 px-4 py-1 rounded-md cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 size-full"><i class="w-4 text-center fa-solid fa-file"></i>Open File...</a></li>
-                    <li class="mx-2"><a class="flex items-center gap-2 px-4 py-1 rounded-md cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 size-full"><i class="w-4 text-center fa-solid fa-floppy-disk"></i>Save</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-md:hidden judge0-showHelpMenu judge0-dropdown">
-            <button class="inline-flex items-center justify-center h-8 gap-2 px-4 text-sm transition rounded-md judge0-dropdown-btn dark:hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 hover:bg-zinc-100 whitespace-nowrap">
-                <span class="overflow-hidden text-nowrap">Help</span>
-            </button>
-            <div class="absolute hidden mt-1 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-zinc-200 dark:[&::-webkit-scrollbar-track]:bg-transparent dark:[&::-webkit-scrollbar-thumb]:bg-zinc-700 text-sm bg-white border rounded-md shadow-md judge0-dropdown-menu max-h-1/2 dark:border-zinc-800 dark:bg-black z-50">
-                <ul class="py-2">
-                    <li class="mx-2"><a class="flex items-center gap-2 px-4 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 size-full" href="https://github.com/judge0/ide" target="_blank" rel="noopener"><i class="w-4 text-center fa-brands fa-github"></i>GitHub Repository</a></li>
-                    <li class="mx-2"><a class="flex items-center gap-2 px-4 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 size-full" href="/embed" target="_blank" rel="noopener"><i class="w-4 text-center fa-solid fa-code"></i>Embed Guide</a></li>
-                    <li class="mx-2"><a class="flex items-center gap-2 px-4 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 size-full" href="https://platform.sulu.sh/apis/judge0" target="_blank" rel="noopener"><i class="w-4 text-center fa-solid fa-book"></i>HTTP API Documentation</a></li>
-                    <li class="mx-2"><a class="flex items-center gap-2 px-4 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 size-full" href="/PRIVACY.md" target="_blank" rel="noopener"><i class="w-4 text-center fa-solid fa-shield-halved"></i>Privacy Policy</a></li>
-                    <li class="mx-2"><a class="flex items-center gap-2 px-4 py-1 rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 size-full" href="/TERMS.md" target="_blank" rel="noopener"><i class="w-4 text-center fa-solid fa-file-signature"></i>Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-md:hidden judge0-showSelectLanguage judge0-dropdown">
-            <button class="flex items-center justify-between h-8 px-2 text-sm text-left bg-transparent border rounded-md judge0-dropdown-btn dark:border-zinc-800 focus-visible:outline-none focus-visible:ring-2">
-                <span class="overflow-hidden text-nowrap judge0-dropdown-value"></span>
-                <i class="pl-2 text-xs fa-solid fa-chevron-down"></i>
-            </button>
-            <div class="absolute hidden mt-1 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-zinc-200 dark:[&::-webkit-scrollbar-track]:bg-transparent dark:[&::-webkit-scrollbar-thumb]:bg-zinc-700 text-sm bg-white border rounded-md shadow-md judge0-dropdown-menu max-h-1/2 dark:border-zinc-800 dark:bg-black z-50">
-                <ul class="py-2">
-                    <li class="hidden px-4 py-1 mx-2 rounded-md cursor-pointer judge0-dropdown-option hover:bg-zinc-100 dark:hover:bg-zinc-800"></li>
-                </ul>
-            </div>
-        </div>
-        <input id="judge0-compiler-options" class="h-8 px-2 text-sm bg-transparent border rounded-md dark:border-zinc-800 max-md:hidden focus-visible:outline-none focus-visible:ring-2 placeholder:text-sm judge0-showCompilerOptions" placeholder="Compiler options" type="text">
-        <input id="judge0-command-line-arguments" class="h-8 px-2 text-sm bg-transparent border rounded-md dark:border-zinc-800 max-md:hidden focus-visible:outline-none focus-visible:ring-2 placeholder:text-sm judge0-showCommandLineArguments" placeholder="Command line arguments" type="text">
-        <button id="judge0-run-btn" class="inline-flex items-center justify-center h-8 gap-2 px-4 text-sm font-semibold transition bg-blue-800 rounded-md focus-visible:outline-none focus-visible:ring-2 hover:bg-blue-900 dark:hover:bg-blue-700 text-blue-50 whitespace-nowrap judge0-showRunButton">
-            <i class="fa-solid fa-play"></i>
-            Run
+      <a
+        href="https://judge0.com"
+        target="_blank"
+        rel="noopener"
+        tabindex="-1"
+        class="w-8 h-8 rounded-md judge0-showLogo"
+      >
+        <img src="./images/icon_var2_rounded_512.png" />
+      </a>
+      <div class="max-md:hidden judge0-showFileMenu judge0-dropdown">
+        <button
+          class="inline-flex items-center justify-center h-8 gap-2 px-4 text-sm transition rounded-md judge0-dropdown-btn dark:hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 hover:bg-zinc-100 whitespace-nowrap"
+        >
+          <span class="overflow-hidden text-nowrap">File</span>
         </button>
-        <div class="judge0-showPuterSignInOutButton max-sm:hidden">
-            <button id="judge0-sign-in-btn" class="inline-flex items-center justify-center h-8 gap-2 px-4 text-sm transition rounded-md text-zinc-800 dark:text-white dark:hover:bg-zinc-700 dark:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 bg-zinc-100 hover:bg-zinc-200 whitespace-nowrap">
-                <i class="fa-arrow-right-to-bracket fa-solid"></i>
-                Sign in with Puter
-            </button>
-            <button id="judge0-sign-out-btn" class="inline-flex items-center justify-center h-8 gap-2 px-4 text-sm transition rounded-md text-zinc-800 dark:text-white dark:hover:bg-zinc-700 dark:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 bg-zinc-100 hover:bg-zinc-200 whitespace-nowrap">
-                <i class="fa-arrow-right-from-bracket fa-solid"></i>
-                <span id="judge0-puter-username"></span>
-            </button>
+        <div
+          class="absolute hidden mt-1 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-zinc-200 dark:[&::-webkit-scrollbar-track]:bg-transparent dark:[&::-webkit-scrollbar-thumb]:bg-zinc-700 text-sm bg-white border rounded-md shadow-md judge0-dropdown-menu max-h-1/2 dark:border-zinc-800 dark:bg-black z-50"
+        >
+          <ul class="py-2">
+            <li class="mx-2">
+              <a
+                class="flex items-center gap-2 px-4 py-1 rounded-md cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 size-full"
+                ><i class="w-4 text-center fa-solid fa-file"></i>Open File...</a
+              >
+            </li>
+            <li class="mx-2">
+              <a
+                class="flex items-center gap-2 px-4 py-1 rounded-md cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-800 size-full"
+                ><i class="w-4 text-center fa-solid fa-floppy-disk"></i>Save</a
+              >
+            </li>
+          </ul>
         </div>
-        <button id="judge0-theme-btn" class="inline-flex items-center justify-center w-8 h-8 gap-2 text-sm transition rounded-md text-zinc-800 dark:text-white dark:hover:bg-zinc-700 dark:bg-zinc-800 max-md:hidden focus-visible:outline-none focus-visible:ring-2 bg-zinc-100 hover:bg-zinc-200 whitespace-nowrap judge0-showThemeButton"><i class="fa-solid fa-sun"></i></button>
+      </div>
+      <div
+        class="max-md:hidden judge0-showSelectLanguage judge0-dropdown relative"
+      >
+        <button
+          class="flex items-center justify-between h-8 px-2 text-sm text-left bg-transparent border rounded-md judge0-dropdown-btn dark:border-zinc-800 focus-visible:outline-none focus-visible:ring-2"
+        >
+          <span class="overflow-hidden text-nowrap judge0-dropdown-value"
+            >Select Language</span
+          >
+          <i class="pl-2 text-xs fa-solid fa-chevron-down"></i>
+        </button>
+        <div
+          class="absolute left-0 hidden mt-1 overflow-y-auto [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-zinc-200 dark:[&::-webkit-scrollbar-track]:bg-transparent dark:[&::-webkit-scrollbar-thumb]:bg-zinc-700 text-sm bg-white border rounded-md shadow-md judge0-dropdown-menu w-64 max-h-80 dark:border-zinc-800 dark:bg-black z-50"
+        >
+          <ul id="language-dropdown-list" class="py-2">
+            <!-- Language options will be populated by JavaScript -->
+          </ul>
+        </div>
+
+        <!-- Hidden semantic UI dropdown for functionality - Keep fully hidden-->
+        <div
+          class="ui dropdown selection"
+          id="select-language"
+          style="display: none !important"
+        >
+          <select id="language-select" class="hidden">
+            <!-- Language options will be populated by JavaScript -->
+          </select>
+          <div class="text"></div>
+          <div class="menu transition"></div>
+        </div>
+
+        <!-- Include Semantic UI CSS and JS -->
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+      </div>
+      <input
+        id="judge0-compiler-options"
+        class="h-8 px-2 text-sm bg-transparent border rounded-md dark:border-zinc-800 max-md:hidden focus-visible:outline-none focus-visible:ring-2 placeholder:text-sm judge0-showCompilerOptions"
+        placeholder="Compiler options"
+        type="text"
+      />
+      <input
+        id="judge0-command-line-arguments"
+        class="h-8 px-2 text-sm bg-transparent border rounded-md dark:border-zinc-800 max-md:hidden focus-visible:outline-none focus-visible:ring-2 placeholder:text-sm judge0-showCommandLineArguments"
+        placeholder="Command line arguments"
+        type="text"
+      />
+      <button
+        id="judge0-run-btn"
+        class="inline-flex items-center justify-center h-8 gap-2 px-4 text-sm font-semibold transition bg-blue-800 rounded-md focus-visible:outline-none focus-visible:ring-2 hover:bg-blue-900 dark:hover:bg-blue-700 text-blue-50 whitespace-nowrap judge0-showRunButton"
+      >
+        <i class="fa-solid fa-play"></i>
+        Run
+      </button>
+      <button
+        id="judge0-theme-btn"
+        class="inline-flex items-center justify-center w-8 h-8 gap-2 text-sm transition rounded-md text-zinc-800 dark:text-white dark:hover:bg-zinc-700 dark:bg-zinc-800 max-md:hidden focus-visible:outline-none focus-visible:ring-2 bg-zinc-100 hover:bg-zinc-200 whitespace-nowrap judge0-showThemeButton"
+      >
+        <i class="fa-solid fa-sun"></i>
+      </button>
+      <button
+        id="logout-btn"
+        class="inline-flex items-center justify-center h-8 gap-2 px-4 text-sm transition rounded-md focus-visible:outline-none focus-visible:ring-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 whitespace-nowrap ml-2"
+        title="Logout"
+      >
+        <i class="fa-solid fa-sign-out-alt"></i>
+        <span class="max-md:hidden">Logout</span>
+      </button>
     </header>
 
     <main class="flex-grow min-h-0 overflow-hidden"></main>
 
-    <footer class="text-xs text-center transition opacity-40 hover:opacity-100 max-sm:hidden judge0-showCopyright">
-        <a href="https://judge0.com" target="_blank" rel="noopener" tabindex="-1">© <span id="judge0-year">2025</span> Judge0 - All Rights Reserved</a>
+    <footer
+      class="text-xs text-center transition opacity-40 hover:opacity-100 max-sm:hidden judge0-showCopyright"
+    >
+      <a href="https://judge0.com" target="_blank" rel="noopener" tabindex="-1"
+        >© <span id="judge0-year">2025</span> AviatorGator - All Rights
+        Reserved.</a
+      >
     </footer>
 
-    <!-- <div id="judge0-site-navigation" class="fixed top borderless ui menu judge0-showNavigation">
-        <a id="judge0-header" href="https://judge0.com" target="_blank" class="header item judge0-showLogo">
-            <img id="judge0-logo" src="./images/icon_var2_rounded_512.png">
-        </a>
-        <div class="ui simple dropdown item judge0-showFileMenu">
-            <span class="text">File</span>
-            <i class="dropdown icon"></i>
-            <div class="menu judge0-file-menu">
-                <div id="judge0-open-file-btn" class="item">
-                    <span class="description">+O</span>
-                    <span class="text"><i class="file icon"></i>Open File...</span>
-                    <input type="file" id="open-file-input" style="display: none;">
-                </div>
-                <div id="judge0-save-btn" class="item">
-                    <span class="description">+S</span>
-                    <span class="text"><i class="save icon"></i>Save</span>
-                </div>
-            </div>
-        </div>
-        <div class="ui simple dropdown item judge0-showHelpMenu">
-            <span class="text">Help</span>
-            <i class="dropdown icon"></i>
-            <div class="menu judge0-file-menu">
-                <a href="https://github.com/judge0/ide" class="link text item" target="_blank"><i class="external square alternate icon"></i>GitHub Repository</a>
-                <a href="/embed" class="link text item" target="_blank"><i class="external square alternate icon"></i>Embed Guide</a>
-                <a href="https://platform.sulu.sh/apis/judge0" class="link text item" target="_blank"><i class="external square alternate icon"></i>HTTP API Documentation</a>
-                <a href="PRIVACY.md" class="link text item" target="_blank"><i class="external square alternate icon"></i>Privacy Policy</a>
-                <a href="TERMS.md" class="link text item" target="_blank"><i class="external square alternate icon"></i>Terms of Service</a>
-            </div>
-        </div>
-        <div class="item judge0-showSelectLanguage">
-            <select id="select-language" class="ui search selection dropdown"></select>
-        </div>
-        <div class="item judge0-showCompilerOptions">
-            <div class="left ui icon transparent input">
-                <i class="flag icon"></i>
-                <input id="compiler-options" type="text" placeholder="Compiler options"></input>
-            </div>
-        </div>
-        <div class="item judge0-showCommandLineArguments">
-            <div class="left ui icon transparent input">
-                <i class="terminal icon"></i>
-                <input id="command-line-arguments" type="text" placeholder="Command line arguments"></input>
-            </div>
-        </div>
-        <div class="item judge0-showRunButton">
-            <button id="run-btn" class="ui primary labeled icon button" data-content="+↵">
-                <i class="play icon"></i>
-                Run Code
-            </button>
-        </div>
-        <div class="right menu">
-            <div id="judge0-theme-toggle-btn" class="icon link item judge0-showThemeButton" data-content="">
-                <i id="judge0-theme-toggle-btn-icon" class="sun icon"></i>
-            </div>
-            <div class="item judge0-showPuterSignInOutButton">
-                <button id="judge0-sign-in-btn" class="ui basic button">
-                    <i class="sign-in icon"></i>
-                    Sign in with Puter
-                </button>
-                <button id="judge0-sign-out-btn" class="ui basic button" data-content="Sign out">
-                    <i class="sign-out icon"></i>
-                    <span id="judge0-puter-username">Sign out</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    <!-- Status line element (similar to the original) -->
+    <div
+      id="judge0-status-line"
+      class="text-sm px-2 py-1 fixed bottom-0 left-0 right-0 bg-zinc-100 dark:bg-zinc-800 z-10"
+    ></div>
 
-    <div id="judge0-site-content"></div>
-
+    <!-- Modal for error messages (similar to the original) -->
     <div id="judge0-site-modal" class="ui modal">
-        <div class="header">
-            <span id="title"></span>
-        </div>
-        <div class="scrolling content"></div>
-        <div class="actions">
-            <a id="report-problem-btn" class="ui labeled icon red button" href="https://github.com/judge0/ide/issues/new?title=New+bug+report&body=Describe+the+problem." target="_blank">
-                <i class="flag icon"></i>
-                Report Problem
-            </a>
-            <div class="ui labeled icon cancel secondary button">
-                <i class="close icon"></i>
-                Close (ESC)
-            </div>
-        </div>
+      <div class="header">
+        <span id="title"></span>
+      </div>
+      <div class="scrolling content"></div>
+      <div class="actions">
+        <a
+          id="report-problem-btn"
+          class="ui negative button"
+          target="_blank"
+          rel="noopener"
+        >
+          Report Problem
+        </a>
+        <div class="ui positive button">Close</div>
+      </div>
     </div>
 
-    <div id="judge0-chat-container" class="ui segment">
-        <div class="top borderless ui attached menu">
-            <div class="item">
-                <div class="ui toggle checked checkbox">
-                    <input id="judge0-inline-suggestions" type="checkbox" checked="">
-                    <label>Inline Suggestions</label>
-                </div>
-            </div>
-            <div class="right menu">
-                <div class="fitted item">
-                    <select id="judge0-chat-model-select" class="ui search selection dropdown item">
-                        <option>gpt-4o-mini</option>
-                        <option>gpt-4o</option>
-                        <option>o3-mini</option>
-                        <option>o1-mini</option>
-                        <option>claude-3-5-sonnet</option>
-                        <option>deepseek-chat</option>
-                        <option>deepseek-reasoner</option>
-                        <option>meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo</option>
-                        <option>meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo</option>
-                        <option>meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo</option>
-                        <option>mistral-large-latest</option>
-                        <option>pixtral-large-latest</option>
-                        <option>codestral-latest</option>
-                        <option>google/gemma-2-27b-it</option>
-                        <option>grok-beta</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div id="judge0-chat-messages"></div>
-        <div id="judge0-chat-input-container" class="ui basic segment">
-            <form id="judge0-chat-form" class="ui fluid action input">
-                <input id="judge0-chat-user-input" type="text">
-                <button id="judge0-chat-send-button" class="ui primary icon button" type="submit">
-                    <i class="arrow up icon"></i>
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <div id="judge0-status-line" class="right bottom ui attached mini label judge0-showStatusLine"></div>
-
-    <a href="https://judge0.com" target="_blank" class="judge0-showCopyright bottom ui center attached mini label">© 2016-2025 Judge0 d.o.o. – All Rights Reserved. • A Croatian 🇭🇷 company</a>
+    <!-- Invisible file buttons -->
+    <button id="judge0-open-file-btn" style="display: none"></button>
+    <button id="judge0-save-btn" style="display: none"></button>
 
     <script>
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("sw.js").then(() => console.log("Service Worker Registered"));
+      // Check if user is logged in
+      document.addEventListener("DOMContentLoaded", function () {
+        if (!sessionStorage.getItem("loggedIn")) {
+          window.location.href = "/login.html";
+          return;
         }
-    </script> -->
-</body>
+
+        // Setup logout button functionality
+        document
+          .getElementById("logout-btn")
+          .addEventListener("click", function () {
+            // Clear session storage
+            sessionStorage.clear();
+            // Redirect to login page
+            window.location.href = "/login.html";
+          });
+
+        // Check if user is admin and add admin-specific UI elements
+        if (sessionStorage.getItem("isAdmin") === "true") {
+          // Add admin indicator to the header
+          const header = document.querySelector("header");
+          const adminBadge = document.createElement("div");
+          adminBadge.className =
+            "px-2 py-1 text-xs font-medium rounded-md bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 ml-2";
+          adminBadge.textContent = "Admin";
+
+          // Insert after the logo but before other elements
+          const logo = header.querySelector(".judge0-showLogo");
+          if (logo && logo.nextSibling) {
+            header.insertBefore(adminBadge, logo.nextSibling);
+          } else {
+            header.appendChild(adminBadge);
+          }
+        }
+      });
+
+      // Initialize modal
+      $(document).ready(function () {
+        $("#judge0-site-modal").modal({
+          closable: true,
+        });
+
+        $(".ui.positive.button").click(function () {
+          $("#judge0-site-modal").modal("hide");
+        });
+
+        // Set current year
+        $("#judge0-year").text(new Date().getFullYear());
+
+        // Fix opacity issue
+        setTimeout(function () {
+          document.body.style.opacity = 1;
+        }, 0);
+
+        // Service worker registration
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("sw.js")
+            .then(() => console.log("Service Worker Registered"));
+        }
+      });
+    </script>
+  </body>
 </html>
