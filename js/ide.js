@@ -524,83 +524,104 @@ function setFontSizeForAllEditors(fontSize) {
 }
 
 async function loadLangauges() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     let options = [];
 
-    $.ajax({
-      url: UNAUTHENTICATED_CE_BASE_URL + "/languages",
-      success: function (data) {
-        for (let i = 0; i < data.length; i++) {
-          let language = data[i];
-          let option = new Option(language.name, language.id);
-          option.setAttribute("flavor", CE);
-          option.setAttribute(
-            "language_mode",
-            getEditorLanguageMode(language.name)
-          );
-
-          if (language.id !== 89) {
-            options.push(option);
-          }
-
-          if (language.id === DEFAULT_LANGUAGE_ID) {
-            option.selected = true;
-          }
-        }
+    // Define your manually curated list of languages
+    const manualLanguages = [
+      { id: 54, name: "C++ (GCC 9.2.0)", flavor: CE, language_mode: "cpp" },
+      { id: 49, name: "C (GCC 8.3.0)", flavor: CE, language_mode: "c" },
+      { id: 71, name: "Python (3.8.1)", flavor: CE, language_mode: "python" },
+      {
+        id: 62,
+        name: "Java (OpenJDK 13.0.1)",
+        flavor: CE,
+        language_mode: "java",
       },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.warn(
-          "Error loading languages from primary endpoint:",
-          textStatus,
-          errorThrown
-        );
-        // Add default C++ language option
-        let option = new Option("C++ (GCC)", DEFAULT_LANGUAGE_ID);
-        option.setAttribute("flavor", CE);
-        option.setAttribute("language_mode", "cpp");
+      {
+        id: 63,
+        name: "JavaScript (Node.js 12.14.0)",
+        flavor: CE,
+        language_mode: "javascript",
+      },
+      {
+        id: 74,
+        name: "TypeScript (3.7.4)",
+        flavor: CE,
+        language_mode: "typescript",
+      },
+      { id: 73, name: "Rust (1.40.0)", flavor: CE, language_mode: "rust" },
+      { id: 43, name: "Plain Text", flavor: CE, language_mode: "plaintext" },
+    ];
+
+    // Create option elements for each language
+    manualLanguages.forEach((lang) => {
+      let option = new Option(lang.name, lang.id);
+      option.setAttribute("flavor", lang.flavor);
+      option.setAttribute("language_mode", lang.language_mode);
+
+      // Set the default language
+      if (lang.id === DEFAULT_LANGUAGE_ID) {
         option.selected = true;
-        options.push(option);
-      },
-      timeout: 5000, // Set a timeout to avoid hanging
-    }).always(function () {
-      // Append option elements to the native <select>
-      $("#language-select").append(options);
-      // Build Semantic UI dropdown menu items from the same options
-      const $semMenu = $("#select-language .menu").empty();
-      options.forEach((opt) => {
-        const $opt = $(opt);
-        const val = $opt.val();
-        const text = $opt.text();
-        $semMenu.append(`
-          <div class="item" data-value="${val}">${text}</div>
-        `);
-      });
-      // Build custom dropdown list from loaded options
-      const $customList = $("#language-dropdown-list");
-      $customList.find("li:not(.hidden)").remove();
-      options.forEach((opt) => {
-        const $opt = $(opt);
-        const val = $opt.val();
-        const text = $opt.text();
-        const $li = $(
-          `<li class="px-4 py-1 mx-2 rounded-md cursor-pointer judge0-dropdown-option hover:bg-zinc-100 dark:hover:bg-zinc-800" data-value="${val}">${text}</li>`
-        );
-        $customList.append($li);
-      });
-      // Handle custom dropdown option clicks
-      $customList
-        .off("click")
-        .on("click", ".judge0-dropdown-option", function () {
-          const value = $(this).data("value");
-          const text = $(this).text();
-          $(".judge0-dropdown-value").text(text);
-          // Update semantic UI dropdown value
-          $("#select-language").dropdown("set selected", value);
-          $(this).closest(".judge0-dropdown-menu").addClass("hidden");
-        });
-      resolve();
-      return;
+      }
+
+      options.push(option);
     });
+
+    // Cache language data for future use
+    manualLanguages.forEach((lang) => {
+      if (!languages[lang.flavor]) {
+        languages[lang.flavor] = {};
+      }
+
+      // Create a full language object
+      languages[lang.flavor][lang.id] = {
+        id: lang.id,
+        name: lang.name,
+        source_file: getDefaultFileNameById(lang.id),
+      };
+    });
+
+    // Append option elements to the native <select>
+    $("#language-select").append(options);
+
+    // Build Semantic UI dropdown menu items from the same options
+    const $semMenu = $("#select-language .menu").empty();
+    options.forEach((opt) => {
+      const $opt = $(opt);
+      const val = $opt.val();
+      const text = $opt.text();
+      $semMenu.append(`
+        <div class="item" data-value="${val}">${text}</div>
+      `);
+    });
+
+    // Build custom dropdown list from loaded options
+    const $customList = $("#language-dropdown-list");
+    $customList.find("li:not(.hidden)").remove();
+    options.forEach((opt) => {
+      const $opt = $(opt);
+      const val = $opt.val();
+      const text = $opt.text();
+      const $li = $(
+        `<li class="px-4 py-1 mx-2 rounded-md cursor-pointer judge0-dropdown-option hover:bg-zinc-100 dark:hover:bg-zinc-800" data-value="${val}">${text}</li>`
+      );
+      $customList.append($li);
+    });
+
+    // Handle custom dropdown option clicks
+    $customList
+      .off("click")
+      .on("click", ".judge0-dropdown-option", function () {
+        const value = $(this).data("value");
+        const text = $(this).text();
+        $(".judge0-dropdown-value").text(text);
+        // Update semantic UI dropdown value
+        $("#select-language").dropdown("set selected", value);
+        $(this).closest(".judge0-dropdown-menu").addClass("hidden");
+      });
+
+    resolve();
   });
 }
 
