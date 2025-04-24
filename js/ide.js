@@ -184,6 +184,26 @@ function handleResult(data) {
   const tat = Math.round(performance.now() - timeStart);
   console.log(`It took ${tat}ms to get submission result.`);
 
+  // Add detailed debugging of the response
+  console.log("Detailed submission response:");
+  console.log("- Status:", data.status);
+  console.log("- Time:", data.time);
+  console.log("- Memory:", data.memory);
+
+  // Decode and log any compilation output or stdout
+  if (data.compile_output) {
+    console.log("- Compilation output (decoded):", decode(data.compile_output));
+  }
+  if (data.stdout) {
+    console.log("- Standard output (decoded):", decode(data.stdout));
+  }
+  if (data.stderr) {
+    console.log("- Standard error (decoded):", decode(data.stderr));
+  }
+
+  // Log the raw data for further inspection
+  console.log("- Raw response data:", data);
+
   const status = data.status;
   const stdout = decode(data.stdout);
   const compileOutput = decode(data.compile_output);
@@ -253,31 +273,72 @@ function run() {
   stdoutEditor.setValue("");
   $statusLine.html("");
 
+  // Get the active content tab
   let x = layout.root.getItemsById("stdout")[0];
-  x.parent.header.parent.setActiveContentItem(x);
+  if (x && x.parent && x.parent.header && x.parent.header.parent) {
+    x.parent.header.parent.setActiveContentItem(x);
+  }
 
   // Get the current file name and extension to ensure language matches
   const sourceName = getSourceCodeName();
-  const fileExtension = sourceName.split('.').pop().toLowerCase();
-  
-  // Check if we need to adjust language based on file extension
-  const currentLangId = getSelectedLanguageId();
   const sourceCodeContent = sourceEditor.getValue();
-  
-  // If file has an extension and it doesn't match the selected language, adjust it
-  if (fileExtension && EXTENSIONS_TABLE[fileExtension]) {
-    const expectedLang = EXTENSIONS_TABLE[fileExtension];
-    if (expectedLang.language_id !== currentLangId) {
-      console.log(`Language mismatch detected! File extension is .${fileExtension} but language ID is ${currentLangId}`);
-      console.log(`Auto-selecting language ${expectedLang.language_id} based on file extension`);
-      selectLanguageByFlavorAndId(expectedLang.language_id, expectedLang.flavor);
+
+  // Auto-detect whether this is C++ code being run with a C file extension
+  const fileExtension = sourceName.split(".").pop().toLowerCase();
+  const isCppCodeWithCExtension =
+    fileExtension === "c" &&
+    (sourceCodeContent.includes("#include <algorithm>") ||
+      sourceCodeContent.includes("#include <vector>") ||
+      sourceCodeContent.includes("#include <iostream>") ||
+      sourceCodeContent.includes("std::") ||
+      sourceCodeContent.includes("using namespace std;"));
+
+  // If C++ code with C extension, change the extension to .cpp
+  if (isCppCodeWithCExtension) {
+    console.log("C++ code detected in .c file - changing extension to .cpp");
+    const fileNameBase = sourceName.slice(0, -(fileExtension.length + 1));
+    setSourceCodeNameWithExtension(fileNameBase, "cpp");
+    // Now get the updated name and extension
+    const updatedSourceName = getSourceCodeName();
+    const updatedFileExtension = updatedSourceName
+      .split(".")
+      .pop()
+      .toLowerCase();
+
+    // Update language based on the new extension
+    if (EXTENSIONS_TABLE[updatedFileExtension]) {
+      const expectedLang = EXTENSIONS_TABLE[updatedFileExtension];
+      selectLanguageByFlavorAndId(
+        expectedLang.language_id,
+        expectedLang.flavor
+      );
+    }
+  } else {
+    // Standard language check for other file types
+    const currentLangId = getSelectedLanguageId();
+
+    // If file has an extension and it doesn't match the selected language, adjust it
+    if (fileExtension && EXTENSIONS_TABLE[fileExtension]) {
+      const expectedLang = EXTENSIONS_TABLE[fileExtension];
+      if (expectedLang.language_id !== currentLangId) {
+        console.log(
+          `Language mismatch detected! File extension is .${fileExtension} but language ID is ${currentLangId}`
+        );
+        console.log(
+          `Auto-selecting language ${expectedLang.language_id} based on file extension`
+        );
+        selectLanguageByFlavorAndId(
+          expectedLang.language_id,
+          expectedLang.flavor
+        );
+      }
     }
   }
-  
+
   // Get updated language after potential adjustment
   let languageId = getSelectedLanguageId();
   let flavor = getSelectedLanguageFlavor();
-  
+
   // Encode values for submission
   let sourceValue = encode(sourceCodeContent);
   let stdinValue = encode(stdinEditor.getValue());
@@ -300,8 +361,11 @@ function run() {
 
   // Log debug information
   console.log("Submission details:");
-  console.log("- File name:", sourceName);
-  console.log("- File extension:", fileExtension);
+  console.log("- File name:", getSourceCodeName());
+  console.log(
+    "- File extension:",
+    getSourceCodeName().split(".").pop().toLowerCase()
+  );
   console.log("- Selected language ID:", languageId);
   console.log("- Selected language flavor:", flavor);
 
@@ -407,6 +471,22 @@ function setSourceCodeName(name) {
 
 function getSourceCodeName() {
   return $(".lm_title")[0].innerText;
+}
+
+function setSourceCodeNameWithExtension(name, extension) {
+  // Override the extension if provided
+  if (extension) {
+    const nameParts = name.split(".");
+    if (nameParts.length > 1) {
+      // If name already has an extension, replace it
+      nameParts.pop();
+      name = nameParts.join(".") + "." + extension;
+    } else {
+      // Otherwise just add the extension
+      name = name + "." + extension;
+    }
+  }
+  $(".lm_title")[0].innerText = name;
 }
 
 function openFile(content, filename) {
@@ -533,9 +613,13 @@ async function loadSelectedLanguage(skipSetDefaultSourceCodeName = false) {
     : "plaintext";
   monaco.editor.setModelLanguage(sourceEditor.getModel(), languageMode);
 
+  const lang = await getSelectedLanguage();
   if (!skipSetDefaultSourceCodeName) {
-    const lang = await getSelectedLanguage();
+    // Set tab title to language's default source filename
     setSourceCodeName(lang.source_file);
+    // Load default template if available
+    const template = DEFAULT_TEMPLATES[lang.id] || "";
+    sourceEditor.setValue(template);
   }
 }
 
@@ -722,7 +806,7 @@ window.addEventListener("load", async function () {
 
   // Initialize the $selectLanguage variable
   $selectLanguage = $("#language-select");
-  
+
   // Load languages, then initialize dropdown and defaults
   const $semanticDropdown = $("#select-language");
   const $languageSelect = $("#language-select");
@@ -1148,7 +1232,17 @@ const DEFAULT_STDIN =
 
 const DEFAULT_COMPILER_OPTIONS = "";
 const DEFAULT_CMD_ARGUMENTS = "";
-const DEFAULT_LANGUAGE_ID = 54; // C++ (GCC 14.1.0) (https://ce.judge0.com/languages/105)
+const DEFAULT_LANGUAGE_ID = 54; // C++ (GCC 14.1.0)
+
+// Default code templates per language
+const DEFAULT_TEMPLATES = {
+  [DEFAULT_LANGUAGE_ID]: DEFAULT_SOURCE,
+  49: "#include <stdio.h>\nint main() { return 0; }", // C
+  63: "console.log('Hello, world!');", // JavaScript
+  71: "#!/usr/bin/env python3\nprint('Hello, world!')", // Python
+  62: 'public class Main { public static void main(String[] args) { System.out.println("Hello, world!"); } }', // Java
+  // ...add more templates as needed
+};
 
 function getEditorLanguageMode(languageName) {
   const DEFAULT_EDITOR_LANGUAGE_MODE = "plaintext";
