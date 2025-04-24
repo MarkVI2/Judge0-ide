@@ -14,8 +14,11 @@ app.use((req, res, next) => {
 
 // CORS middleware - Add before other middleware
 app.use((req, res, next) => {
-  // Allow requests from any origin
-  res.header("Access-Control-Allow-Origin", "*");
+  // Allow requests from specific origin instead of wildcard
+  res.header("Access-Control-Allow-Origin", "https://code.euclid-mu.in");
+
+  // Allow credentials (if you're using cookies/sessions)
+  res.header("Access-Control-Allow-Credentials", "true");
 
   // Allow specific methods
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
