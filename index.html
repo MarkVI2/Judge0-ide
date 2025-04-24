@@ -260,7 +260,8 @@
       class="text-xs text-center transition opacity-40 hover:opacity-100 max-sm:hidden judge0-showCopyright"
     >
       <a href="https://judge0.com" target="_blank" rel="noopener" tabindex="-1"
-        >© <span id="judge0-year">2025</span> Judge0 - All Rights Reserved</a
+        >© <span id="judge0-year">2025</span> AviatorGator - All Rights
+        Reserved.</a
       >
     </footer>
 
@@ -302,12 +303,14 @@
         }
 
         // Setup logout button functionality
-        document.getElementById("logout-btn").addEventListener("click", function() {
-          // Clear session storage
-          sessionStorage.clear();
-          // Redirect to login page
-          window.location.href = "/login.html";
-        });
+        document
+          .getElementById("logout-btn")
+          .addEventListener("click", function () {
+            // Clear session storage
+            sessionStorage.clear();
+            // Redirect to login page
+            window.location.href = "/login.html";
+          });
 
         // Check if user is admin and add admin-specific UI elements
         if (sessionStorage.getItem("isAdmin") === "true") {
