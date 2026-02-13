@@ -1,3 +1,51 @@
-.judge0-hidden {
-    display: none !important;
+/* Hide search input in Semantic UI dropdown */
+.ui.dropdown .search {
+  display: none !important;
+}
+
+/* Ensure dropdown menu displays properly */
+.ui.dropdown .menu {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Fix positioning for consistent appearance */
+.ui.dropdown {
+  min-width: 200px;
+}
+
+/* Custom dropdown styling */
+.judge0-dropdown-menu {
+  width: 16rem; /* w-64 equivalent */
+  max-height: 20rem; /* max-h-80 equivalent */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Ensure dropdown items have consistent styling */
+#language-dropdown-list li {
+  padding: 0.25rem 1rem;
+  margin: 0 0.5rem;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#language-dropdown-list li:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark #language-dropdown-list li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Style for selected language */
+#language-dropdown-list li.selected {
+  background-color: rgba(59, 130, 246, 0.1);
+  font-weight: 500;
+}
+
+.dark #language-dropdown-list li.selected {
+  background-color: rgba(59, 130, 246, 0.2);
 }
